@@ -36,4 +36,40 @@ The BP_DAG is responsible for executing the following sequential tasks:
 9. Task_09: Log detailed information to Grafana for monitoring.
 10. Task_10: Closing dummy task for process finalization.
 
+# Airflow Student Onboarding Workflow Implementation
+
+This repository contains the implementation of various workflows to automate the student onboarding process using Apache Airflow. The main objective is to streamline and optimize the student enrollment process by automating repetitive tasks, including validation, registration, and communication with external services. Each workflow variation is implemented using different technology stacks to demonstrate the flexibility and scalability of the solution.
+
+## Repository Structure
+
+The repository is organized into multiple branches, each focusing on a specific variation of the student onboarding workflow. Each branch leverages a different technology stack to achieve the same business goal but with different infrastructure and architectural choices. This allows you to explore different ways of implementing and scaling the solution depending on the use case and technology preference.
+
+### Branch Overview
+
+- **Branch 01: student-onboard-with-af-dags**  
+  Implements the basic student onboarding workflow using Apache Airflow for task orchestration.
+
+- **Branch 02: student-onboard-af-invokes-springboot-api**  
+  Integrates Apache Airflow with a Spring Boot-based microservice (`StudentOnboardBatchService`) to handle parts of the onboarding logic.
+
+- **Branch 03: student-onboard-af-as-consumer-invokes-springboot-api**  
+  Uses Apache Airflow as a consumer of messages from Azure Event Bridge, invoking the Spring Boot microservice for student onboarding.
+
+- **Branch 04: student-onboard-azure-functions-invokes-springboot-api**  
+  Implements Azure Functions to invoke the Spring Boot microservice for the onboarding process, replacing Airflow with serverless technology.
+
+- **Branch 05: student-onboard-azure-functions-invokes-springboot-batch-api**  
+  Extends the Azure Functions implementation by adding Spring Batch for batch processing of student onboarding data.
+
+- **Branch 06: student-onboard-af-invokes-springboot-jbpm-bpmn-api**  
+  Combines Apache Airflow with Spring Boot and JBPM BPMN to manage the business process workflow for student onboarding, utilizing BPMN standards.
+
+### Common Technology Stack
+
+All branches share the following common technology components:
+- **Database**: Postgres is used to persist student data and transactional information across all workflows.
+
+---
+
+Each branch represents a unique workflow approach. You can switch between branches to explore how different stacks integrate with Airflow or serverless architectures to handle large-scale student onboarding scenarios.
 
