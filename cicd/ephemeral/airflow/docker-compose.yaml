@@ -16,14 +16,14 @@ services:
     image: apache/airflow:2.6.1
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/dags
+      AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/dags  # Path to DAGs
       AIRFLOW__CORE__LOAD_EXAMPLES: 'False'
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-      AIRFLOW__CORE__FERNET_KEY: ''
+      AIRFLOW__CORE__FERNET_KEY: ''  # Optional for encryption
       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'True'
+      AIRFLOW__WEBSERVER__EXPOSE_CONFIG: 'True'  # Add this line to expose the configuration
     volumes:
-      - ./dags:/opt/airflow/dags
-      - ../../student_onboard_batch_service:/opt/airflow/student_onboard_batch_service
+      - ../../../:/opt/airflow/dags  # Ensure DAGs are accessible
     ports:
       - "8080:8080"
     depends_on:
@@ -43,8 +43,7 @@ services:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
     volumes:
-      - ./dags:/opt/airflow/dags
-      - ../../student_onboard_batch_service:/opt/airflow/student_onboard_batch_service
+      - ../../../:/opt/airflow/dags  # Ensure DAGs are accessible
     depends_on:
       - postgres
     networks:

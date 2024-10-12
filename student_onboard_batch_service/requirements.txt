@@ -1,0 +1,8 @@
+# Apache Airflow dependencies
+apache-airflow[postgres]==2.10.2
+
+# Additional dependencies
+pandas==2.2.3             # For data manipulation and reading Excel files
+openpyxl==3.1.5          # Excel file format support
+requests==2.32.3          # For making HTTP requests if needed
+numpy==2.1.2             # For numerical operations (optional, depending on your tasks)
