@@ -11,8 +11,10 @@ This project automates repetitive onboarding tasks, ensuring smooth and efficien
 ## Main_DAG Behavior
 The Main_DAG reads an input Excel file, which contains key student information. For every student record, the Main_DAG invokes the BP_DAG to carry out specific tasks required for onboarding.
 
+This Excel file may have up to 10,000 rows, each representing a student. 
+
 ### Excel columns
-SSN, First Name, Last Name, Date of Birth, Email, Confirmed Course ID, Payment ID, Payment Amount, and Payment Date. This Excel file may have up to 10,000 rows, each representing a student. 
+SSN, First Name, Last Name, Date of Birth, Email, Confirmed Course ID, Payment ID, Payment Amount, and Payment Date. 
 
 ## BP_DAG Behavior
 The BP_DAG is responsible for executing the following sequential tasks:
