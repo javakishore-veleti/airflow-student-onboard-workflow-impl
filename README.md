@@ -1,7 +1,11 @@
 # Student Onboard Workflow - Apache Airflow Implementation
 
 ## Introduction
-This repository contains Apache Airflow Directed Acyclic Graphs (DAGs) designed to automate the onboarding process for students enrolling in courses. The solution involves two primary DAGs: the **Main_DAG** and the **BP_DAG** (Business Process DAG), working in tandem to streamline student data processing and course enrollment.
+This repository contains Apache Airflow Directed Acyclic Graphs (DAGs) designed to automate the onboarding process for students enrolling in courses. 
+
+The solution involves two primary DAGs: the **Main_DAG** and the **BP_DAG** (Business Process DAG).
+
+Both the DAG's working in tandem to streamline student data processing and course enrollment.
 
 ## Business Process Understanding
 This project automates repetitive onboarding tasks, ensuring smooth and efficient student enrollment, reducing human error, and integrating monitoring tools like Azure Event Hub and Grafana for end-to-end visibility.
