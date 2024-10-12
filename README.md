@@ -70,3 +70,19 @@ All branches share the following common technology components:
 
 Each branch represents a unique workflow approach. You can switch between branches to explore how different stacks integrate with Airflow or serverless architectures to handle large-scale student onboarding scenarios.
 
+### Project Branches and Technology Stack
+
+| Branch Name                                          | Technology Stack                                                                                  |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `student-onboard-with-af-dags`                       | Apache Airflow                                                                                     |
+| `student-onboard-af-invokes-springboot-api`          | Apache Airflow, Spring Boot Java Microservice called `StudentOnboardBatchService`                   |
+| `student-onboard-af-as-consumer-invokes-springboot-api` | Apache Airflow, Azure Event Bridge, Spring Boot Java Microservice called `StudentOnboardBatchService` |
+| `student-onboard-azure-functions-invokes-springboot-api` | Azure Functions, Spring Boot Java Microservice called `StudentOnboardBatchService`                   |
+| `student-onboard-azure-functions-invokes-springboot-batch-api` | Azure Functions, Spring Boot Java Microservice called `StudentOnboardBatchService`, Spring Batch     |
+| `student-onboard-af-invokes-springboot-jbpm-bpmn-api` | Apache Airflow, Spring Boot Java Microservice called `StudentOnboardBatchService`, JBPM BPMN Implementation |
+
+## Common Technology Stack
+
+- **Database**: Postgres
+
+
