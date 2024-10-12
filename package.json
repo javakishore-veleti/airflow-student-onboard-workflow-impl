@@ -1,0 +1,14 @@
+{
+    "name": "student-onboard-batch",
+    "version": "1.0.0",
+    "description": "Project for managing Apache Airflow with scripts",
+    "main": "index.js",
+    "scripts": {
+        "start:airflow": "bash ./cicd/ephemeral/start_airflow.sh",
+        "stop:airflow": "bash ./cicd/ephemeral/stop_airflow.sh",
+        "terminate:airflow": "bash ./cicd/ephemeral/terminate_airflow.sh"
+    },
+    "author": "Your Name",
+    "license": "ISC",
+    "keywords": []
+}
