@@ -36,11 +36,8 @@ The BP_DAG is responsible for executing the following sequential tasks:
 9. Task_09: Log detailed information to Grafana for monitoring.
 10. Task_10: Closing dummy task for process finalization.
 
-# Airflow Student Onboarding Workflow Implementation
 
-This repository contains the implementation of various workflows to automate the student onboarding process using Apache Airflow. The main objective is to streamline and optimize the student enrollment process by automating repetitive tasks, including validation, registration, and communication with external services. Each workflow variation is implemented using different technology stacks to demonstrate the flexibility and scalability of the solution.
-
-## Repository Structure
+## This Codebase or Repository Structure
 
 The repository is organized into multiple branches, each focusing on a specific variation of the student onboarding workflow. Each branch leverages a different technology stack to achieve the same business goal but with different infrastructure and architectural choices. This allows you to explore different ways of implementing and scaling the solution depending on the use case and technology preference.
 
