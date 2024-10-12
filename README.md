@@ -1,20 +1,20 @@
 # Student Onboard Workflow - Apache Airflow Implementation
 
-## Introduction
+## 01 - Introduction
 This repository contains Apache Airflow Directed Acyclic Graphs (DAGs) designed to automate the onboarding process for students enrolling in courses. 
 
 The solution involves two primary DAGs: the **Main_DAG** and the **BP_DAG** (Business Process DAG).
 
 Both the DAG's working in tandem to streamline student data processing and course enrollment.
 
-## Business Process Understanding
+## 02 - Business Process Understanding
 This project automates repetitive onboarding tasks, ensuring smooth and efficient student enrollment, reducing human error, and integrating monitoring tools like Azure Event Hub and Grafana for end-to-end visibility.
 
 Note: BP means Business Process
 
 ![Student Onboarding Business Process Understanding](Student_Onboarding_Business_Process_Flow_v01.png "Student Onboarding Business Process Understanding")
 
-## Main_DAG Behavior
+## 03 - Main_DAG Behavior
 The Main_DAG reads an input Excel file, which contains key student information. For every student record, the Main_DAG invokes the BP_DAG to carry out specific tasks required for onboarding.
 
 This Excel file may have up to 10,000 rows, each representing a student. 
@@ -22,7 +22,7 @@ This Excel file may have up to 10,000 rows, each representing a student.
 ### Excel columns
 SSN, First Name, Last Name, Date of Birth, Email, Confirmed Course ID, Payment ID, Payment Amount, and Payment Date. 
 
-## BP_DAG Behavior
+## 04 - BP_DAG Behavior
 The BP_DAG is responsible for executing the following sequential tasks:
 
 1. Task_01: Check if the SSN is already registered for the course.
@@ -37,7 +37,7 @@ The BP_DAG is responsible for executing the following sequential tasks:
 10. Task_10: Closing dummy task for process finalization.
 
 
-## This Codebase or Repository Structure
+## 05 - This Codebase or Repository Structure
 
 The repository is organized into multiple branches, each focusing on a specific variation of the student onboarding workflow. Each branch leverages a different technology stack to achieve the same business goal but with different infrastructure and architectural choices. This allows you to explore different ways of implementing and scaling the solution depending on the use case and technology preference.
 
