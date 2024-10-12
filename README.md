@@ -66,9 +66,8 @@ The repository is organized into multiple branches, each focusing on a specific 
 All branches share the following common technology components:
 - **Database**: Postgres is used to persist student data and transactional information across all workflows.
 
----
-
 Each branch represents a unique workflow approach. You can switch between branches to explore how different stacks integrate with Airflow or serverless architectures to handle large-scale student onboarding scenarios.
+
 
 ### Project Branches and Technology Stack
 
