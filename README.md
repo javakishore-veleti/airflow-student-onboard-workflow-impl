@@ -10,6 +10,8 @@ Both the DAG's working in tandem to streamline student data processing and cours
 ## Business Process Understanding
 This project automates repetitive onboarding tasks, ensuring smooth and efficient student enrollment, reducing human error, and integrating monitoring tools like Azure Event Hub and Grafana for end-to-end visibility.
 
+Note: BP means Business Process
+
 ![Student Onboarding Business Process Understanding](Student_Onboarding_Business_Process_Flow_v01.png "Student Onboarding Business Process Understanding")
 
 ## Main_DAG Behavior
