@@ -1,7 +1,7 @@
 from student_onboard_batch_service.wf.onboarding.wf_interfaces import OnboardWfTask
 from student_onboard_batch_service.wf.staging_data.wf_interfaces import StagingDataReaderWfTask
 from student_onboard_batch_service.wf.staging_data.wf_tasks.read_stg_data_excel_task import ReadStgDataExcelTask
-from student_onboard_batch_service.wf.staging_data.wf_tasks.validate_stg_data_task import ValidateStgDatalTask
+from student_onboard_batch_service.wf.staging_data.wf_tasks.validate_stg_data_task import ValidateStgDataTask
 
 
 class StagingDataReaderTasksFactory:
@@ -20,7 +20,7 @@ class StagingDataReaderTasksFactory:
         """
         task_mapping = {
             'read_stg_data_excel_task': ReadStgDataExcelTask,
-            'validate_stg_data_task': ValidateStgDatalTask
+            'validate_stg_data_task': ValidateStgDataTask
         }
 
         task_class = task_mapping.get(task_name)
