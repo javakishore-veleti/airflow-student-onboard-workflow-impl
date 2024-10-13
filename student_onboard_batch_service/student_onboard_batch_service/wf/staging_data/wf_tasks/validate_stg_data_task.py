@@ -19,21 +19,24 @@ class ValidateStgDataTask(StagingDataReaderWfTask):
     def execute_wf_task(self, req_ctx: OnboardStudentReqCtx, resp_ctx: OnboardStudentRespCtx) -> int:
         LOGGER.info(f"{LOG_PREFIX} ENTERED req_ctx = {req_ctx}")
 
-        if req_ctx.student_list_df is None:
-            LOGGER.error(f"{LOG_PREFIX} Student list DataFrame is None")
+        if req_ctx.student_data_df_list is None:
+            LOGGER.error(f"{LOG_PREFIX} Student list DataFrame (student_data_df_list) is None")
             return WfResponse.INVALID_INPUT
 
         # Filter out rows with blank ssn, first_name, last_name, course_id, or dob
         LOGGER.info(f"{LOG_PREFIX} Started Filtering student_list_df for null values of ssn, first_name, last_name, "
                     f"course_id, dob")
-        filtered_df = req_ctx.student_list_df.dropna(subset=['ssn', 'first_name', 'last_name', 'course_id', 'dob'])
 
-        if filtered_df.empty:
+        final_student_data_df_list = []
+        for file_name, student_list_df in req_ctx.student_data_df_list:
+            filtered_df = student_list_df.dropna(subset=['ssn', 'first_name', 'last_name', 'course_id', 'dob'])
+            final_student_data_df_list.append((file_name, filtered_df))
+
+        if not final_student_data_df_list:
             LOGGER.error(f"{LOG_PREFIX} No valid rows found after filtering")
             return WfResponse.INVALID_INPUT
 
-        for index, row in filtered_df.iterrows():
-            LOGGER.info(f"{LOG_PREFIX} Processing row: {row}")
+        req_ctx.student_data_df_list = final_student_data_df_list
 
         LOGGER.info(f"{LOG_PREFIX} EXITING req_ctx = {req_ctx}")
         return WfResponse.SUCCESS
