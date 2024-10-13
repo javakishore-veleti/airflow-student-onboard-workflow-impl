@@ -25,6 +25,7 @@ class OnboardStudentReqCtx:
         self.student_list_df: DataFrame = None
         self.student_data_df_list: list[(str, DataFrame)] = []
         self.schedule_type = ScheduleTypes.NEAR_REAL_TIME
+        self.excel_file_distributed = False
 
     def __str__(self):
         students_str = ', '.join(str(student) for student in self.students_list)
