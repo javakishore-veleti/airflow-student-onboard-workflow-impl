@@ -1,10 +1,20 @@
-# student_onboard_batch_service/dags/main_dag.py
+# student_onboard_batch_service/onboard_student_dags/main_dag.py
 
+import os
 from datetime import datetime
+
 from airflow import DAG
 from airflow.operators.dummy import DummyOperator
 from airflow.operators.python import PythonOperator
+
+import sys
 import os
+
+from student_onboard_batch_service.common.dtos import OnboardStudentReqCtx, OnboardStudentRespCtx
+from student_onboard_batch_service.wf.staging_data.staging_data_reader_wf import StagingDataReaderWfImpl
+
+# Add the path to student_onboard_batch_service to PYTHONPATH
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
 # Default path to read student data
 # Get the user's home directory
@@ -20,6 +30,11 @@ def read_student_data_from_staging_datazone(staging_path=None, staging_path_prov
         path_to_use = staging_path
     else:
         path_to_use = default_path
+
+    req_ctx = OnboardStudentReqCtx()
+    resp_ctx = OnboardStudentRespCtx()
+    StagingDataReaderWfImpl().execute(req_ctx, resp_ctx)
+
 
     # Logic to read student data from the specified path
     print(f"Reading student data from: {path_to_use}")
@@ -67,5 +82,7 @@ with DAG('Main_DAG',
         provide_context=True
     )
 
+    end = DummyOperator(task_id='end')
+
     # Set the task dependencies
-    start >> read_student_data_from_staging_datazone >> trigger_bp
+    start >> read_student_data_from_staging_datazone >> trigger_bp >> end

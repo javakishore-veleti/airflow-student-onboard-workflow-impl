@@ -21,7 +21,8 @@ services:
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
       AIRFLOW__CORE__FERNET_KEY: ''  # Optional for encryption
       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'True'
-      AIRFLOW__WEBSERVER__EXPOSE_CONFIG: 'True'  # Add this line to expose the configuration
+      AIRFLOW__WEBSERVER__EXPOSE_CONFIG: 'True'  # Expose configuration for debugging
+      PYTHONPATH: /opt/airflow/dags:/opt/airflow/dags/student_onboard_batch_service  # Add PYTHONPATH
     volumes:
       - ../../../:/opt/airflow/dags  # Ensure DAGs are accessible
     ports:
@@ -42,6 +43,7 @@ services:
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      PYTHONPATH: /opt/airflow/dags:/opt/airflow/dags/student_onboard_batch_service  # Add PYTHONPATH
     volumes:
       - ../../../:/opt/airflow/dags  # Ensure DAGs are accessible
     depends_on:
