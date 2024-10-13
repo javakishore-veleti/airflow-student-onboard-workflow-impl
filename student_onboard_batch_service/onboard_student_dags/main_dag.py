@@ -1,14 +1,15 @@
 # student_onboard_batch_service/onboard_student_dags/main_dag.py
-
 import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
+
+
 from datetime import datetime
 
 from airflow import DAG
 from airflow.operators.dummy import DummyOperator
 from airflow.operators.python import PythonOperator
 
-import sys
-import os
 
 from student_onboard_batch_service.common.dtos import OnboardStudentReqCtx, OnboardStudentRespCtx
 from student_onboard_batch_service.wf.staging_data.staging_data_reader_wf import StagingDataReaderWfImpl

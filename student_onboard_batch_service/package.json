@@ -1,0 +1,14 @@
+{
+    "name": "student_onboard_batch_service",
+    "version": "1.0.0",
+    "description": "Project for managing Apache Airflow with scripts",
+    "main": "index.js",
+    "scripts": {
+        "airflow-start": "CODEBASE_PATH=$(pwd) bash ./bin/airflow/start_airflow.sh",
+        "airflow-stop": "bash ./bin/airflow/stop_airflow.sh",
+        "airflow-terminate": "bash ./bin/airflow/terminate_airflow.sh"
+    },
+    "author": "Your Name",
+    "license": "ISC",
+    "keywords": []
+}
