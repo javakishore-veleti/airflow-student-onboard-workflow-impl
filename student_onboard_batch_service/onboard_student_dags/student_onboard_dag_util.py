@@ -41,6 +41,7 @@ def create_dag(default_args=None, dag_id: str = "Main_DAG", dag_description: str
     if schedule_interval == "None":
         schedule_interval = None
 
+
     # Define the function that will be called by the PythonOperator
     if default_args is None:
         default_args = default_args_value
@@ -104,14 +105,20 @@ def create_dag(default_args=None, dag_id: str = "Main_DAG", dag_description: str
             provide_context=True
         )
 
-        # Task to trigger the BP_DAG
-        trigger_bp = PythonOperator(
-            task_id='trigger_bp_dag',
-            python_callable=trigger_bp_dag,
-            provide_context=True
-        )
+        trigger_bp = None
+        if not excel_file_distributed:
+            # Task to trigger the BP_DAG
+            trigger_bp = PythonOperator(
+                task_id='trigger_bp_dag',
+                python_callable=trigger_bp_dag,
+                provide_context=True
+            )
 
         end = DummyOperator(task_id='end')
 
-        # Set the task dependencies
-        start >> read_student_data_from_staging_datazone >> trigger_bp >> end
+        if not excel_file_distributed:
+            # Set the task dependencies
+            start >> read_student_data_from_staging_datazone >> trigger_bp >> end
+        else:
+            # Set the task dependencies
+            start >> read_student_data_from_staging_datazone >> end

@@ -5,7 +5,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
 
 from datetime import datetime
 
-from onboard_student_dags.main_dag_util import create_dag
+from onboard_student_dags.student_onboard_dag_util import create_dag
 
 default_args = {
     'owner': 'airflow',
@@ -14,6 +14,6 @@ default_args = {
     'retries': 1,
 }
 
-create_dag(default_args=default_args, dag_id="Main_DAG_Local_Execution",
-           dag_description="Main DAG Local Execution for onboarding students",
+create_dag(default_args=default_args, dag_id="Student_OnBoard_DAG_Local_Execution",
+           dag_description="Student OnBoard DAG Local Execution for onboarding students",
            deployment_mode="local", excel_file_distributed=False, schedule_interval="None")

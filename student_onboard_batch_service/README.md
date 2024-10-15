@@ -32,7 +32,7 @@ Request Body:
 
 Example cURL Command:
 ```shell
-curl -X POST "http://localhost:8080/api/v1/dags/Main_DAG_Distributed_Execution/dagRuns" \
+curl -X POST "http://localhost:8080/api/v1/dags/Student_OnBoard_DAG_Distributed_Execution/dagRuns" \
     -H "Content-Type: application/json" \
     -H "Authorization: Basic YWRtaW46YWRtaW4xMjM=" \
     -d '{
@@ -64,7 +64,7 @@ Request Body:
 
 Example cURL Command:
 ```shell
-curl -X POST "http://localhost:8080/api/v1/dags/Main_DAG_Local_Execution/dagRuns" \
+curl -X POST "http://localhost:8080/api/v1/dags/Student_OnBoard_DAG_Local_Execution/dagRuns" \
     -H "Content-Type: application/json" \
     -H "Authorization: Basic YWRtaW46YWRtaW4xMjM=" \
     -d '{
