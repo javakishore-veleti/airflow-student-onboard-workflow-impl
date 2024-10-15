@@ -11,9 +11,11 @@ default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
     'start_date': datetime(2024, 10, 12),
-    'retries': 1,
+    'retries': 0,
+    "student_info": {}
 }
 
 create_dag(default_args=default_args, dag_id="Student_OnBoard_DAG_Local_Execution",
            dag_description="Student OnBoard DAG Local Execution for onboarding students",
-           deployment_mode="local", excel_file_distributed=False, schedule_interval="None")
+           deployment_mode="local", excel_file_distributed=False, schedule_interval="None",
+           skip_read_staging_data=True)
