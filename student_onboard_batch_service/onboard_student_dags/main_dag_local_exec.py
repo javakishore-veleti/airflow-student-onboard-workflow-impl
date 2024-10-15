@@ -16,4 +16,4 @@ default_args = {
 
 create_dag(default_args=default_args, dag_id="Main_DAG_Local_Execution",
            dag_description="Main DAG Local Execution for onboarding students",
-           deployment_mode="local", excel_file_distributed=False)
+           deployment_mode="local", excel_file_distributed=False, schedule_interval="None")

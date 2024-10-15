@@ -16,18 +16,30 @@ from airflow.operators.python import PythonOperator
 from student_onboard_batch_service.common.dtos import OnboardStudentReqCtx, OnboardStudentRespCtx
 from student_onboard_batch_service.wf.staging_data.staging_data_reader_wf import StagingDataReaderWfImpl
 
+# depends_on_past: Set this to True to prevent the execution of the current run if the previous run failed.
+# This is useful when the tasks are dependent on the previous run's success.
+# depends_on_past Disable the UI Execution Button: In your DAG definition, ensure that the depends_on_past property is
+# set to True. This way, the UI's execution button may be disabled if the previous run is still running or has failed.
+# However, the primary control will come from setting schedule_interval to None.
+
+# retries: The number of retries that should be attempted before failing the task.
+
 default_args_value = {
     'owner': 'airflow',
     'depends_on_past': False,
     'start_date': datetime(2024, 10, 12),
-    'retries': 1,
+    'retries': 0,
 }
 
 
 def create_dag(default_args=None, dag_id: str = "Main_DAG", dag_description: str = "Main DAG for onboarding students",
-               schedule_interval: str = "@daily", excel_file_distributed: bool = False, deployment_mode: str = "local"):
+               schedule_interval="None", excel_file_distributed: bool = False, deployment_mode: str = "local"):
     if default_args is None:
         default_args = default_args_value
+
+    # Convert the string "None" to actual Python None
+    if schedule_interval == "None":
+        schedule_interval = None
 
     # Define the function that will be called by the PythonOperator
     if default_args is None:

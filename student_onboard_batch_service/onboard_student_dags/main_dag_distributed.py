@@ -16,4 +16,5 @@ default_args = {
 
 create_dag(default_args=default_args, dag_id="Main_DAG_Distributed_Execution",
            dag_description="Main DAG Distributed for onboarding students",
-           deployment_mode="distributed", excel_file_distributed=True)
+           deployment_mode="distributed", excel_file_distributed=True,
+           schedule_interval="None")
