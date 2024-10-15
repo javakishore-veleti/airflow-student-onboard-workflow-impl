@@ -10,5 +10,5 @@ class SendEmailTask(OnboardWfTask):
         pass
 
     @override
-    def execute_wf_task(self, req_ctx: OnboardStudentReqCtx, resp_ctx: OnboardStudentRespCtx):
+    def execute_wf_task(self, req_ctx: OnboardStudentReqCtx, resp_ctx: OnboardStudentRespCtx) -> int:
         return WfResponse.SUCCESS

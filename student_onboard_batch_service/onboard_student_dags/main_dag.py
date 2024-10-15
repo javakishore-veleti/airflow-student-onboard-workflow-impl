@@ -1,6 +1,8 @@
 # student_onboard_batch_service/onboard_student_dags/main_dag.py
 import os
 import sys
+
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
 
 
@@ -13,6 +15,7 @@ from airflow.operators.python import PythonOperator
 
 from student_onboard_batch_service.common.dtos import OnboardStudentReqCtx, OnboardStudentRespCtx
 from student_onboard_batch_service.wf.staging_data.staging_data_reader_wf import StagingDataReaderWfImpl
+from student_onboard_batch_service.wf.onboarding.onboarding_wf import OnboardingWfImpl
 
 # Add the path to student_onboard_batch_service to PYTHONPATH
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
@@ -36,6 +39,10 @@ def read_student_data_from_staging_datazone(staging_path=None, staging_path_prov
     resp_ctx = OnboardStudentRespCtx()
     StagingDataReaderWfImpl().execute(req_ctx, resp_ctx)
 
+    # Push both contexts to XCom
+    ti = kwargs['ti']
+    ti.xcom_push(key='req_ctx', value=req_ctx)
+    ti.xcom_push(key='resp_ctx', value=resp_ctx)
 
     # Logic to read student data from the specified path
     print(f"Reading student data from: {path_to_use}")
@@ -44,6 +51,15 @@ def read_student_data_from_staging_datazone(staging_path=None, staging_path_prov
 def trigger_bp_dag(**kwargs):
     # Logic to trigger the BP_DAG for each student
     print("Triggering BP_DAG for each student...")
+
+    # Pull the contexts from XCom
+    req_ctx = ti.xcom_pull(task_ids='read_student_data_from_stg_datazone', key='req_ctx')
+    resp_ctx = ti.xcom_pull(task_ids='read_student_data_from_stg_datazone', key='resp_ctx')
+
+
+    OnboardingWfImpl().execute(req_ctx, resp_ctx)
+
+
 
 
 # Define the default arguments for the DAG

@@ -21,7 +21,7 @@ default_args_value = {
 
 
 def create_dag(default_args=None, dag_id: str = "Main_DAG", dag_description: str = "Main DAG for onboarding students",
-               schedule_interval: str = "@daily", excel_file_distributed: bool = False):
+               schedule_interval: str = "@daily", excel_file_distributed: bool = False, deployment_mode: str = "local"):
     if default_args is None:
         default_args = default_args_value
 
@@ -42,9 +42,21 @@ def create_dag(default_args=None, dag_id: str = "Main_DAG", dag_description: str
 
         StagingDataReaderWfImpl().execute(req_ctx, resp_ctx)
 
+        if deployment_mode == "local":
+            # Push both contexts to XCom
+            ti = kwargs['ti']
+            ti.xcom_push(key='req_ctx', value=req_ctx)
+            ti.xcom_push(key='resp_ctx', value=resp_ctx)
+
     def trigger_bp_dag(**kwargs):
         # Logic to trigger the BP_DAG for each student
         print("Triggering BP_DAG for each student...")
+
+        if deployment_mode == "local":
+            ti = kwargs['ti']
+            # Pull the contexts from XCom
+            req_ctx = ti.xcom_pull(task_ids='read_student_data_from_stg_datazone', key='req_ctx')
+            resp_ctx = ti.xcom_pull(task_ids='read_student_data_from_stg_datazone', key='resp_ctx')
 
     with DAG(dag_id,
              default_args=default_args,
