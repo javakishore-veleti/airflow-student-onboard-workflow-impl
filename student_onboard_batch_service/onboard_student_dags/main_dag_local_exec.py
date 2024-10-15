@@ -14,6 +14,6 @@ default_args = {
     'retries': 1,
 }
 
-create_dag(default_args=default_args, dag_id="Main_DAG_Distributed_Execution",
-           dag_description="Main DAG Distributed for onboarding students",
-           deployment_mode="distributed", excel_file_distributed=True)
+create_dag(default_args=default_args, dag_id="Main_DAG_Local_Execution",
+           dag_description="Main DAG Local Execution for onboarding students",
+           deployment_mode="local", excel_file_distributed=False)
