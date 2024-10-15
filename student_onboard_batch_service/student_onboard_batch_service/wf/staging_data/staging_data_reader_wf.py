@@ -11,6 +11,11 @@ class StagingDataReaderWfImpl:
             "read_stg_data_excel_task", "validate_stg_data_task"
         ]
 
+    # This method will execute all the tasks in the workflow
+    # Since Each Airflow Task can be deployed as a separate container or kubernetes pod or non-kubernetes Celery task,
+    # that requires serialization and de-serialization of each sub-tasks input and output values, by design
+    # this StagingDataReaderWfImpl class is developed to run the core business logic in a single container or
+    # kubernetes pod
     def execute(self, req_ctx: OnboardStudentReqCtx, resp_ctx: OnboardStudentRespCtx):
         for task in self.tasks:
             LOGGER.info(f"Executing task START : {task}")
