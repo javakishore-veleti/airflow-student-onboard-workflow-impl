@@ -8,13 +8,10 @@ The Airflow REST API allows you to trigger DAGs programmatically using HTTP requ
 
 Ensure in your Airflow configuration file (airflow.cfg) that the following settings are enabled:
 ```python
+#    auth_backends = airflow.api.auth.backend.session
+#    authenticate = True
+#    enable_experimental_api = True
 ```
-    auth_backends = airflow.api.auth.backend.session
-    authenticate = True
-    enable_experimental_api = True
-
-
-```shell
 
 1. Triggering Main_DAG_Distributed_Execution
 Endpoint: POST /api/v1/dags/Main_DAG_Distributed_Execution/dagRuns
