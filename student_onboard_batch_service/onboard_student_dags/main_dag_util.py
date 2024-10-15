@@ -3,6 +3,10 @@ import sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
 
+from student_onboard_batch_service.wf.onboarding.onboarding_wf import OnboardingWfImpl
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
+
 from datetime import datetime
 
 from airflow import DAG
@@ -45,8 +49,8 @@ def create_dag(default_args=None, dag_id: str = "Main_DAG", dag_description: str
         if deployment_mode == "local":
             # Push both contexts to XCom
             ti = kwargs['ti']
-            ti.xcom_push(key='req_ctx', value=req_ctx)
-            ti.xcom_push(key='resp_ctx', value=resp_ctx)
+            ti.xcom_push(key='req_ctx', value=req_ctx.to_json())
+            ti.xcom_push(key='resp_ctx', value=resp_ctx.to_json())
 
     def trigger_bp_dag(**kwargs):
         # Logic to trigger the BP_DAG for each student
@@ -55,8 +59,17 @@ def create_dag(default_args=None, dag_id: str = "Main_DAG", dag_description: str
         if deployment_mode == "local":
             ti = kwargs['ti']
             # Pull the contexts from XCom
-            req_ctx = ti.xcom_pull(task_ids='read_student_data_from_stg_datazone', key='req_ctx')
-            resp_ctx = ti.xcom_pull(task_ids='read_student_data_from_stg_datazone', key='resp_ctx')
+            req_ctx_json = ti.xcom_pull(task_ids='read_student_data_from_stg_datazone', key='req_ctx')
+            resp_ctx_json = ti.xcom_pull(task_ids='read_student_data_from_stg_datazone', key='resp_ctx')
+
+            req_ctx = OnboardStudentReqCtx.from_json(req_ctx_json)
+            resp_ctx = OnboardStudentRespCtx.from_json(resp_ctx_json)
+
+        else:
+            req_ctx = OnboardStudentReqCtx()
+            resp_ctx = OnboardStudentRespCtx()
+
+        OnboardingWfImpl().execute(req_ctx, resp_ctx)
 
     with DAG(dag_id,
              default_args=default_args,

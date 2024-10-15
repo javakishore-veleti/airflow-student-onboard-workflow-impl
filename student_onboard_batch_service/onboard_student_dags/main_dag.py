@@ -41,8 +41,8 @@ def read_student_data_from_staging_datazone(staging_path=None, staging_path_prov
 
     # Push both contexts to XCom
     ti = kwargs['ti']
-    ti.xcom_push(key='req_ctx', value=req_ctx)
-    ti.xcom_push(key='resp_ctx', value=resp_ctx)
+    ti.xcom_push(key='req_ctx', value=req_ctx.to_json())
+    ti.xcom_push(key='resp_ctx', value=resp_ctx.to_json())
 
     # Logic to read student data from the specified path
     print(f"Reading student data from: {path_to_use}")
@@ -52,15 +52,16 @@ def trigger_bp_dag(**kwargs):
     # Logic to trigger the BP_DAG for each student
     print("Triggering BP_DAG for each student...")
 
-    # Pull the contexts from XCom
-    req_ctx = ti.xcom_pull(task_ids='read_student_data_from_stg_datazone', key='req_ctx')
-    resp_ctx = ti.xcom_pull(task_ids='read_student_data_from_stg_datazone', key='resp_ctx')
+    ti = kwargs['ti']
 
+    # Pull the contexts from XCom
+    req_ctx_json = ti.xcom_pull(task_ids='read_student_data_from_stg_datazone', key='req_ctx')
+    resp_ctx_json = ti.xcom_pull(task_ids='read_student_data_from_stg_datazone', key='resp_ctx')
+
+    req_ctx = OnboardStudentReqCtx.from_json(req_ctx_json)
+    resp_ctx = OnboardStudentRespCtx.from_json(resp_ctx_json)
 
     OnboardingWfImpl().execute(req_ctx, resp_ctx)
-
-
-
 
 # Define the default arguments for the DAG
 default_args = {
